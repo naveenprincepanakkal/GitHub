@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GitHub Users</string>
+
+    <string name="followers">Followers</string>
+    <string name="public_repos">Public Repos</string>
+    <string name="search">Search</string>
+    <string name="error">Error</string>
+
+</resources>
