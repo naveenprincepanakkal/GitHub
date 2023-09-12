@@ -21,6 +21,13 @@ This Android application, built using the MVVM (Model-View-ViewModel) architectu
 [Coil](https://coil-kt.github.io/coil/) is a modern and fast image loading library for Android. It's designed for efficiency and performance, making it ideal for loading and displaying images in your Android app. Coil supports features like caching, placeholders, and resizing, making it a versatile choice for image loading.
 
 
+### ToDo
+- UI testing in compose
+- Adding build flavors
+- Configuring proguard for production build
+- Create and move dependency library version from gradle.kts to libs.versions file
+
+
 ## Contact
 
 If you have any questions or suggestions, feel free to contact us at naveenprincep@gmail.com.
