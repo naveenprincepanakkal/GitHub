@@ -26,6 +26,7 @@ This Android application, built using the MVVM (Model-View-ViewModel) architectu
 - Adding build flavors
 - Configuring proguard for production build
 - Create and move dependency library version from gradle.kts to libs.versions file
+- Need to handle various screen sizes for tablet and horizontal screen orientations
 
 
 ## Contact
