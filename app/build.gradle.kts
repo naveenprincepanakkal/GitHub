@@ -57,10 +57,11 @@ dependencies {
 
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.09.00"))
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
+    implementation(libs.ui.tooling)
     implementation(libs.material3)
     implementation(libs.navigation.compose)
 
@@ -78,7 +79,7 @@ dependencies {
     implementation(libs.coil.compose)
 
     //Testing
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.junit)
 
     androidTestImplementation(libs.espresso.core)
     testImplementation(libs.junit.ktx)
@@ -87,11 +88,14 @@ dependencies {
     testImplementation(libs.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
 
+    //Mockito
     testImplementation(libs.mockito.core)
 
+    //Hilt
     androidTestImplementation(libs.hilt.android.testing)
     kaptAndroidTest(libs.hilt.android.compiler)
 
+    //Gson
     testImplementation(libs.gson)
 
 }
