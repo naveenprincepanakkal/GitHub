@@ -30,7 +30,7 @@ This Android application, built using the MVVM (Model-View-ViewModel) architectu
 
 ## Contact
 
-If you have any suggestions or feedback, feel free to contact me at naveenprincep@gmail.com or https://www.linkedin.com/in/naveenprincep/
+If you have any suggestions or feedback, feel free to contact me at naveenprincep@gmail.com or [LinkedIn](https://www.linkedin.com/in/naveenprincep/)
 
 Happy coding!
 
