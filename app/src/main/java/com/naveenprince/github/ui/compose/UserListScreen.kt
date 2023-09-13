@@ -191,6 +191,7 @@ fun SearchBar(
 @Composable
 fun Preview() {
     GitHubUsersTheme {
-        UserListView(listOf())
+        SearchBar(onSearchClick = { })
+        //UserCard(null, onUserClick = { })
     }
 }
