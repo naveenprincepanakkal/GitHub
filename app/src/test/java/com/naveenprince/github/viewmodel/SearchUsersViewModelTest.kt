@@ -31,7 +31,6 @@ class SearchUsersViewModelTest {
     private lateinit var searchRepository: SearchRepository
     private lateinit var searchViewModel: SearchUsersViewModel
 
-
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)

@@ -22,7 +22,6 @@ import org.mockito.junit.MockitoJUnitRunner
 /**
  * Created by Naveen.
  */
-
 @RunWith(MockitoJUnitRunner::class)
 class SearchRepositoryTest {
 
@@ -36,7 +35,7 @@ class SearchRepositoryTest {
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        repository = SearchRepository(remoteDataSource)
+        repository = SearchRepositoryImpl(remoteDataSource)
     }
 
     @Test

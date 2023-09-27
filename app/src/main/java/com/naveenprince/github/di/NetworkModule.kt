@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
- *  Provider class for dependency injection
+ * Provider class for dependency injection of Network Module
  *
  * Created by Naveen.
  */
