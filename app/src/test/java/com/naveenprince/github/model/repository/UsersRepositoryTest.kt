@@ -1,7 +1,7 @@
 package com.naveenprince.github.model.repository
 
 import com.google.gson.Gson
-import com.naveenprince.github.model.api.RemoteDataSource
+import com.naveenprince.github.model.api.UsersRemoteDataSource
 import com.naveenprince.github.model.data.UserDetailsResponse
 import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
@@ -28,7 +28,7 @@ class UsersRepositoryTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Mock
-    private lateinit var remoteDataSource: RemoteDataSource
+    private lateinit var remoteDataSource: UsersRemoteDataSource
     private lateinit var repository: UsersRepository
 
     @Before

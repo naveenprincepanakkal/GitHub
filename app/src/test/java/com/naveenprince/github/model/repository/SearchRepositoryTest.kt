@@ -1,7 +1,7 @@
 package com.naveenprince.github.model.repository
 
 import com.google.gson.Gson
-import com.naveenprince.github.model.api.RemoteDataSource
+import com.naveenprince.github.model.api.SearchRemoteDataSource
 import com.naveenprince.github.model.data.SearchUsersResponse
 import com.naveenprince.github.model.data.User
 import com.naveenprince.github.utilities.MainDispatcherRule
@@ -29,7 +29,7 @@ class SearchRepositoryTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Mock
-    private lateinit var remoteDataSource: RemoteDataSource
+    private lateinit var remoteDataSource: SearchRemoteDataSource
     private lateinit var repository: SearchRepository
 
     @Before

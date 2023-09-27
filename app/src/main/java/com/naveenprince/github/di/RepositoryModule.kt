@@ -1,6 +1,7 @@
 package com.naveenprince.github.di
 
-import com.naveenprince.github.model.api.RemoteDataSource
+import com.naveenprince.github.model.api.SearchRemoteDataSource
+import com.naveenprince.github.model.api.UsersRemoteDataSource
 import com.naveenprince.github.model.repository.SearchRepository
 import com.naveenprince.github.model.repository.SearchRepositoryImpl
 import com.naveenprince.github.model.repository.UsersRepository
@@ -22,12 +23,12 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideSearchRepository(remoteDataSource: RemoteDataSource): SearchRepository =
+    fun provideSearchRepository(remoteDataSource: SearchRemoteDataSource): SearchRepository =
         SearchRepositoryImpl(remoteDataSource)
 
     @Singleton
     @Provides
-    fun provideUsersRepository(remoteDataSource: RemoteDataSource): UsersRepository =
+    fun provideUsersRepository(remoteDataSource: UsersRemoteDataSource): UsersRepository =
         UsersRepositoryImpl(remoteDataSource)
 
 }

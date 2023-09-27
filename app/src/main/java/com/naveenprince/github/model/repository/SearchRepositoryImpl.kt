@@ -1,6 +1,6 @@
 package com.naveenprince.github.model.repository
 
-import com.naveenprince.github.model.api.RemoteDataSource
+import com.naveenprince.github.model.api.SearchRemoteDataSource
 import com.naveenprince.github.model.data.SearchUsersResponse
 import com.naveenprince.github.model.data.User
 import com.naveenprince.github.utils.ResponseStatus
@@ -13,10 +13,10 @@ import javax.inject.Inject
  *
  * Created by Naveen.
  */
-class SearchRepositoryImpl @Inject constructor(private val remoteDataSource: RemoteDataSource) :
+class SearchRepositoryImpl @Inject constructor(private val remoteDataSource: SearchRemoteDataSource) :
     SearchRepository {
 
-    override suspend fun searchUsers(query: String): Flow<ResponseStatus<List<User>>> = flow {
+    override fun searchUsers(query: String): Flow<ResponseStatus<List<User>>> = flow {
         var searchResponse: SearchUsersResponse?
         remoteDataSource.searchUsers(query).collect {
             when (it) {

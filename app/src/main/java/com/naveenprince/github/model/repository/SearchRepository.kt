@@ -12,6 +12,6 @@ interface SearchRepository {
     /**
      * Search users from the given query
      */
-    suspend fun searchUsers(query: String): Flow<ResponseStatus<List<User>>>
+    fun searchUsers(query: String): Flow<ResponseStatus<List<User>>>
 
 }
