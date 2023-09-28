@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.naveenprince.github.R
-import com.naveenprince.github.model.data.UserDetailsResponse
+import com.naveenprince.github.model.data.UserDetails
 import com.naveenprince.github.ui.theme.GitHubUsersTheme
 import com.naveenprince.github.ui.theme.margin_large
 import com.naveenprince.github.ui.theme.margin_medium
@@ -51,7 +51,7 @@ fun UserDetailsScreen(
 
 @Composable
 fun UserDetailsScreen(
-    userDetailsViewState: ResponseStatus<UserDetailsResponse>
+    userDetailsViewState: ResponseStatus<UserDetails>
 ) {
     Column(
         modifier = Modifier
@@ -70,7 +70,7 @@ fun UserDetailsScreen(
 }
 
 @Composable
-fun UserDetails(userDetails: UserDetailsResponse?) {
+fun UserDetails(userDetails: UserDetails?) {
     Card(
         modifier = Modifier
             .padding(margin_xlarge)

@@ -2,7 +2,7 @@ package com.naveenprince.github.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.naveenprince.github.model.data.UserDetailsResponse
+import com.naveenprince.github.model.data.UserDetails
 import com.naveenprince.github.model.repository.UsersRepository
 import com.naveenprince.github.utils.ResponseStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,9 +20,9 @@ import javax.inject.Inject
 class UserDetailsViewModel @Inject constructor(private val usersRepository: UsersRepository) :
     ViewModel() {
 
-    private var _userDetailsState: MutableStateFlow<ResponseStatus<UserDetailsResponse>> =
+    private var _userDetailsState: MutableStateFlow<ResponseStatus<UserDetails>> =
         MutableStateFlow(ResponseStatus.Empty)
-    val userDetailsState: StateFlow<ResponseStatus<UserDetailsResponse>> = _userDetailsState
+    val userDetailsState: StateFlow<ResponseStatus<UserDetails>> = _userDetailsState
 
     fun fetchUserDetails(url: String) {
         _userDetailsState.value = ResponseStatus.Loading()

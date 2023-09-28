@@ -1,6 +1,7 @@
 package com.naveenprince.github.viewmodel
 
 import com.google.gson.Gson
+import com.naveenprince.github.model.data.UserDetails
 import com.naveenprince.github.model.data.UserDetailsResponse
 import com.naveenprince.github.model.repository.UsersRepository
 import com.naveenprince.github.utilities.MainDispatcherRule
@@ -66,11 +67,11 @@ class UserDetailsViewModelTest {
 
         // When
         Mockito.`when`(usersRepository.fetchUserDetails(queryUrl))
-            .thenReturn(flowOf(ResponseStatus.Success(userDetailsResponse)))
+            .thenReturn(flowOf(ResponseStatus.Success(UserDetails(userDetailsResponse))))
         userViewModel.fetchUserDetails(queryUrl)
 
         // Then
-        val expectedResult = ResponseStatus.Success(userDetailsResponse)
+        val expectedResult = ResponseStatus.Success(UserDetails(userDetailsResponse))
         val actualResult = userViewModel.userDetailsState.value
         assertEquals(expectedResult, actualResult)
     }

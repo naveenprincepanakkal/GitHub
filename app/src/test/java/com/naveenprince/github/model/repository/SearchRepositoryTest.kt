@@ -1,7 +1,7 @@
 package com.naveenprince.github.model.repository
 
 import com.google.gson.Gson
-import com.naveenprince.github.model.api.RemoteDataSource
+import com.naveenprince.github.model.api.SearchRemoteDataSource
 import com.naveenprince.github.model.data.SearchUsersResponse
 import com.naveenprince.github.model.data.User
 import com.naveenprince.github.utilities.MainDispatcherRule
@@ -22,7 +22,6 @@ import org.mockito.junit.MockitoJUnitRunner
 /**
  * Created by Naveen.
  */
-
 @RunWith(MockitoJUnitRunner::class)
 class SearchRepositoryTest {
 
@@ -30,13 +29,13 @@ class SearchRepositoryTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Mock
-    private lateinit var remoteDataSource: RemoteDataSource
+    private lateinit var remoteDataSource: SearchRemoteDataSource
     private lateinit var repository: SearchRepository
 
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        repository = SearchRepository(remoteDataSource)
+        repository = SearchRepositoryImpl(remoteDataSource)
     }
 
     @Test
@@ -55,7 +54,7 @@ class SearchRepositoryTest {
         result.collect { apiResponseStatus ->
             when (apiResponseStatus) {
                 is ResponseStatus.Success -> assertEquals(
-                    searchUsersResponse.userList,
+                    searchUsersResponse.userList.map { User(it) },
                     apiResponseStatus.data
                 )
 

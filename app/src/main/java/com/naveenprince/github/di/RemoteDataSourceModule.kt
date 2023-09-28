@@ -1,6 +1,10 @@
 package com.naveenprince.github.di
 
+import com.naveenprince.github.model.api.SearchRemoteDataSource
+import com.naveenprince.github.model.api.SearchRemoteDataSourceImpl
 import com.naveenprince.github.model.api.SearchService
+import com.naveenprince.github.model.api.UsersRemoteDataSource
+import com.naveenprince.github.model.api.UsersRemoteDataSourceImpl
 import com.naveenprince.github.model.api.UsersService
 import com.naveenprince.github.utils.BASE_URL
 import dagger.Module
@@ -14,15 +18,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
- *  Provider class for dependency injection
+ * Provider class for dependency injection of Network Module
  *
  * Created by Naveen.
  */
-
 @InstallIn(SingletonComponent::class)
 @Module
-object NetworkModule {
+object RemoteDataSourceModule {
 
+    @Singleton
+    @Provides
+    fun provideSearchRemoteDataSource(searchService: SearchService): SearchRemoteDataSource =
+        SearchRemoteDataSourceImpl(searchService)
+
+    @Singleton
+    @Provides
+    fun providerUsersRemoteDataSource(usersService: UsersService): UsersRemoteDataSource =
+        UsersRemoteDataSourceImpl(usersService)
     @Singleton
     @Provides
     fun provideSearchService(retrofit: Retrofit): SearchService =
