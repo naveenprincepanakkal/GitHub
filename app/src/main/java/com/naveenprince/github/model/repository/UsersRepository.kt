@@ -1,6 +1,6 @@
 package com.naveenprince.github.model.repository
 
-import com.naveenprince.github.model.data.UserDetailsResponse
+import com.naveenprince.github.model.data.UserDetails
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 
@@ -12,6 +12,6 @@ interface UsersRepository {
     /**
      * Fetching user details
      */
-    fun fetchUserDetails(url: String): Flow<ResponseStatus<UserDetailsResponse>>
+    fun fetchUserDetails(url: String): Flow<ResponseStatus<UserDetails>>
 
 }

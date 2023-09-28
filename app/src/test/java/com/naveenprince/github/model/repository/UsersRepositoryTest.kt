@@ -2,6 +2,7 @@ package com.naveenprince.github.model.repository
 
 import com.google.gson.Gson
 import com.naveenprince.github.model.api.UsersRemoteDataSource
+import com.naveenprince.github.model.data.UserDetails
 import com.naveenprince.github.model.data.UserDetailsResponse
 import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
@@ -49,12 +50,12 @@ class UsersRepositoryTest {
         Mockito.`when`(remoteDataSource.userDetails(queryUrl))
             .thenReturn(flowOf(ResponseStatus.Success(userDetailsResponse)))
 
-        val result: Flow<ResponseStatus<UserDetailsResponse>> =
+        val result: Flow<ResponseStatus<UserDetails>> =
             repository.fetchUserDetails(queryUrl)
         result.collect { apiResponseStatus ->
             when (apiResponseStatus) {
                 is ResponseStatus.Success -> assertEquals(
-                    userDetailsResponse,
+                    UserDetails(userDetailsResponse),
                     apiResponseStatus.data
                 )
 
@@ -74,7 +75,7 @@ class UsersRepositoryTest {
 
         Mockito.`when`(remoteDataSource.userDetails(queryUrl))
             .thenReturn(flowOf(ResponseStatus.Error(errorCode, errorMessage)))
-        val result: Flow<ResponseStatus<UserDetailsResponse>> =
+        val result: Flow<ResponseStatus<UserDetails>> =
             repository.fetchUserDetails(queryUrl)
         result.collect { apiResponseStatus ->
             when (apiResponseStatus) {

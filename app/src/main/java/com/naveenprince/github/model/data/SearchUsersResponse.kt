@@ -7,12 +7,12 @@ data class SearchUsersResponse(
     @SerializedName("incomplete_results")
     val incompleteResults: Boolean,
     @SerializedName("items")
-    val userList: List<User> = listOf(),
+    val userList: List<UserResponse> = listOf(),
     @SerializedName("total_count")
     val totalCount: Int
 )
 
-data class User(
+data class UserResponse(
     @SerializedName("avatar_url")
     val avatarUrl: String,
     @SerializedName("bio")
@@ -102,3 +102,15 @@ data class Matches(
     @SerializedName("text")
     val text: String?
 )
+
+data class User(
+    val avatarUrl: String,
+    val login: String,
+    val url: String,
+) {
+    constructor(userResponse: UserResponse) : this(
+        userResponse.avatarUrl,
+        userResponse.login,
+        userResponse.url,
+    )
+}

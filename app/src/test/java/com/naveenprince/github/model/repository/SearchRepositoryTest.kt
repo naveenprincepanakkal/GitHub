@@ -54,7 +54,7 @@ class SearchRepositoryTest {
         result.collect { apiResponseStatus ->
             when (apiResponseStatus) {
                 is ResponseStatus.Success -> assertEquals(
-                    searchUsersResponse.userList,
+                    searchUsersResponse.userList.map { User(it) },
                     apiResponseStatus.data
                 )
 

@@ -2,6 +2,7 @@ package com.naveenprince.github.viewmodel
 
 import com.google.gson.Gson
 import com.naveenprince.github.model.data.SearchUsersResponse
+import com.naveenprince.github.model.data.User
 import com.naveenprince.github.model.repository.SearchRepository
 import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
@@ -62,7 +63,7 @@ class SearchUsersViewModelTest {
         val jsonString = javaClass.getResource("/json/user_search.json")?.readText()
         val searchUsersResponse: SearchUsersResponse =
             Gson().fromJson(jsonString, SearchUsersResponse::class.java)
-        val userList = searchUsersResponse.userList
+        val userList = searchUsersResponse.userList.map { User(it) }
 
         // When
         Mockito.`when`(searchRepository.searchUsers(query))

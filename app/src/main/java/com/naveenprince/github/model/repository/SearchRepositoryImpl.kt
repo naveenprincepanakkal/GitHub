@@ -1,7 +1,6 @@
 package com.naveenprince.github.model.repository
 
 import com.naveenprince.github.model.api.SearchRemoteDataSource
-import com.naveenprince.github.model.data.SearchUsersResponse
 import com.naveenprince.github.model.data.User
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
@@ -17,12 +16,12 @@ class SearchRepositoryImpl @Inject constructor(private val remoteDataSource: Sea
     SearchRepository {
 
     override fun searchUsers(query: String): Flow<ResponseStatus<List<User>>> = flow {
-        var searchResponse: SearchUsersResponse?
         remoteDataSource.searchUsers(query).collect {
             when (it) {
                 is ResponseStatus.Success -> {
-                    searchResponse = it.data
-                    emit(ResponseStatus.Success(searchResponse?.userList))
+                    val user: List<User> =
+                        it.data?.userList?.map { users -> User(users) } ?: listOf()
+                    emit(ResponseStatus.Success(user))
                 }
 
                 is ResponseStatus.Error -> {

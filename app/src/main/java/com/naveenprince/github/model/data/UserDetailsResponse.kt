@@ -100,3 +100,17 @@ data class Plan(
     @SerializedName("space")
     val space: Int
 )
+
+data class UserDetails(
+    val avatarUrl: String,
+    val followers: Int,
+    val login: String,
+    val publicRepos: Int,
+) {
+    constructor(userDetailsResponse: UserDetailsResponse) : this(
+        userDetailsResponse.avatarUrl,
+        userDetailsResponse.followers,
+        userDetailsResponse.login,
+        userDetailsResponse.publicRepos,
+    )
+}
