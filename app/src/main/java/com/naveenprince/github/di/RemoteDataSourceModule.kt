@@ -35,6 +35,7 @@ object RemoteDataSourceModule {
     @Provides
     fun providerUsersRemoteDataSource(usersService: UsersService): UsersRemoteDataSource =
         UsersRemoteDataSourceImpl(usersService)
+
     @Singleton
     @Provides
     fun provideSearchService(retrofit: Retrofit): SearchService =

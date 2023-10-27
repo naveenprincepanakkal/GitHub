@@ -28,9 +28,7 @@ class SearchRepositoryImpl @Inject constructor(private val remoteDataSource: Sea
                     emit(ResponseStatus.Error(it.statusCode, it.message))
                 }
 
-                else -> {
-                    emit(ResponseStatus.Loading())
-                }
+                else -> { }
             }
         }
     }
