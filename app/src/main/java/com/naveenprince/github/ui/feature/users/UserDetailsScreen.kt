@@ -1,4 +1,4 @@
-package com.naveenprince.github.ui.compose
+package com.naveenprince.github.ui.feature.users
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,14 +24,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.naveenprince.github.R
-import com.naveenprince.github.model.data.UserDetails
+import com.naveenprince.github.domain.model.UserDetails
+import com.naveenprince.github.ui.compose.CenteredCircularProgressIndicator
+import com.naveenprince.github.ui.compose.ErrorMessage
 import com.naveenprince.github.ui.theme.GitHubUsersTheme
 import com.naveenprince.github.ui.theme.margin_large
 import com.naveenprince.github.ui.theme.margin_medium
 import com.naveenprince.github.ui.theme.margin_small
 import com.naveenprince.github.ui.theme.margin_xlarge
-import com.naveenprince.github.utils.ResponseStatus
-import com.naveenprince.github.viewmodel.UserDetailsViewModel
 
 /**
  * Created by Naveen.
@@ -45,13 +45,13 @@ fun UserDetailsScreen(
     LaunchedEffect(true) {
         viewModel.fetchUserDetails(userUrl)
     }
-    val userDetailsViewState by viewModel.userDetailsState.collectAsState()
-    UserDetailsScreen(userDetailsViewState)
+    val userDetailsState by viewModel.userDetailsState.collectAsState(initial = UserDetailsState())
+    UserDetailsScreen(userDetailsState)
 }
 
 @Composable
 fun UserDetailsScreen(
-    userDetailsViewState: ResponseStatus<UserDetails>
+    userDetailsState: UserDetailsState
 ) {
     Column(
         modifier = Modifier
@@ -60,17 +60,22 @@ fun UserDetailsScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        when (userDetailsViewState) {
-            is ResponseStatus.Success -> UserDetails(userDetailsViewState.data)
-            is ResponseStatus.Error -> ErrorMessage(errorMsg = userDetailsViewState.message)
-            is ResponseStatus.Loading -> CenteredCircularProgressIndicator()
-            else -> {}
+        if (userDetailsState.isLoading) {
+            CenteredCircularProgressIndicator()
+        } else {
+            if (userDetailsState.error != null) {
+                ErrorMessage(errorMsg = userDetailsState.error)
+            } else if (userDetailsState.userDetails == null) {
+                Text(text = stringResource(R.string.user_not_found))
+            } else {
+                UserDetails(userDetailsState.userDetails)
+            }
         }
     }
 }
 
 @Composable
-fun UserDetails(userDetails: UserDetails?) {
+fun UserDetails(userDetails: UserDetails) {
     Card(
         modifier = Modifier
             .padding(margin_xlarge)
@@ -84,13 +89,13 @@ fun UserDetails(userDetails: UserDetails?) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AsyncImage(
-                model = userDetails?.avatarUrl,
+                model = userDetails.avatarUrl,
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,
                 contentDescription = "Description",
                 placeholder = painterResource(id = R.drawable.loading)
             )
-            Text(text = "${userDetails?.login}")
+            Text(text = userDetails.login)
         }
 
         Row(
@@ -103,14 +108,14 @@ fun UserDetails(userDetails: UserDetails?) {
                     .weight(1.0f)
                     .padding(margin_small),
                 textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.followers) + "\n${userDetails?.followers}"
+                text = stringResource(id = R.string.followers) + "\n${userDetails.followers}"
             )
             Text(
                 modifier = Modifier
                     .weight(1.0f)
                     .padding(margin_small),
                 textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.public_repos) + "\n${userDetails?.publicRepos}"
+                text = stringResource(id = R.string.public_repos) + "\n${userDetails.publicRepos}"
             )
         }
     }
@@ -121,6 +126,6 @@ fun UserDetails(userDetails: UserDetails?) {
 @Composable
 fun PreviewDetail() {
     GitHubUsersTheme {
-        UserDetails(userDetails = null)
+        //UserDetails(UserDetailsState())
     }
 }

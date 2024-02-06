@@ -1,7 +1,8 @@
-package com.naveenprince.github.model.repository
+package com.naveenprince.github.data.repository
 
-import com.naveenprince.github.model.api.SearchRemoteDataSource
-import com.naveenprince.github.model.data.User
+import com.naveenprince.github.data.source.remote.search.SearchRemoteDataSource
+import com.naveenprince.github.domain.model.User
+import com.naveenprince.github.domain.repository.SearchRepository
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -28,7 +29,6 @@ class SearchRepositoryImpl @Inject constructor(private val remoteDataSource: Sea
                     emit(ResponseStatus.Error(it.statusCode, it.message))
                 }
 
-                else -> { }
             }
         }
     }

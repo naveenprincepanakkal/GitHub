@@ -1,6 +1,5 @@
-package com.naveenprince.github.model.api
+package com.naveenprince.github.data.source.remote.search
 
-import com.naveenprince.github.model.data.SearchUsersResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,11 +1,11 @@
 package com.naveenprince.github.di
 
-import com.naveenprince.github.model.api.SearchRemoteDataSource
-import com.naveenprince.github.model.api.SearchRemoteDataSourceImpl
-import com.naveenprince.github.model.api.SearchService
-import com.naveenprince.github.model.api.UsersRemoteDataSource
-import com.naveenprince.github.model.api.UsersRemoteDataSourceImpl
-import com.naveenprince.github.model.api.UsersService
+import com.naveenprince.github.data.source.remote.search.SearchRemoteDataSource
+import com.naveenprince.github.data.source.remote.search.SearchRemoteDataSourceImpl
+import com.naveenprince.github.data.source.remote.search.SearchService
+import com.naveenprince.github.data.source.remote.users.UsersRemoteDataSource
+import com.naveenprince.github.data.source.remote.users.UsersRemoteDataSourceImpl
+import com.naveenprince.github.data.source.remote.users.UsersService
 import com.naveenprince.github.utils.BASE_URL
 import dagger.Module
 import dagger.Provides

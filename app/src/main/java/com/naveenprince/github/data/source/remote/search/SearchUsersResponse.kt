@@ -1,4 +1,4 @@
-package com.naveenprince.github.model.data
+package com.naveenprince.github.data.source.remote.search
 
 
 import com.google.gson.annotations.SerializedName
@@ -102,15 +102,3 @@ data class Matches(
     @SerializedName("text")
     val text: String?
 )
-
-data class User(
-    val avatarUrl: String,
-    val login: String,
-    val url: String,
-) {
-    constructor(userResponse: UserResponse) : this(
-        userResponse.avatarUrl,
-        userResponse.login,
-        userResponse.url,
-    )
-}

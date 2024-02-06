@@ -1,10 +1,10 @@
-package com.naveenprince.github.ui.compose
+package com.naveenprince.github.ui.navigation
 
 /**
  * Created by Naveen.
  */
 
-enum class NavigationRoute(
+enum class GitHubUsersNavRoute(
     val route: String,
 ) {
     USER_LIST("user_list"),

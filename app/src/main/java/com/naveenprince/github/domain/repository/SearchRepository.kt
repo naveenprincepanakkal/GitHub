@@ -1,6 +1,6 @@
-package com.naveenprince.github.model.repository
+package com.naveenprince.github.domain.repository
 
-import com.naveenprince.github.model.data.User
+import com.naveenprince.github.domain.model.User
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 

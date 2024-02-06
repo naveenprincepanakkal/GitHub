@@ -1,4 +1,4 @@
-package com.naveenprince.github.ui.compose
+package com.naveenprince.github.ui.feature.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,25 +38,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.naveenprince.github.R
-import com.naveenprince.github.model.data.User
+import com.naveenprince.github.domain.model.User
+import com.naveenprince.github.ui.compose.CenteredCircularProgressIndicator
+import com.naveenprince.github.ui.compose.ErrorMessage
+import com.naveenprince.github.ui.feature.users.UserDetailsScreen
 import com.naveenprince.github.ui.theme.GitHubUsersTheme
 import com.naveenprince.github.ui.theme.margin_large
 import com.naveenprince.github.ui.theme.margin_medium
-import com.naveenprince.github.utils.ResponseStatus
-import com.naveenprince.github.viewmodel.SearchUsersViewModel
 
 /**
  * Created by Naveen.
  */
 
 @Composable
-fun UserScreen(
+fun SearchUsersScreen(
     viewModel: SearchUsersViewModel = hiltViewModel(),
 ) {
-    val userListState by viewModel.userListState.collectAsState()
+    val searchUserState by viewModel.searchUsersState.collectAsState(initial = SearchUsersState())
     val focusManager = LocalFocusManager.current
-    UserScreen(
-        userListState,
+    SearchUsersScreen(
+        searchUserState,
         onSearchClick = { query ->
             if (query.isNotEmpty()) {
                 viewModel.searchUser(query)
@@ -66,17 +67,23 @@ fun UserScreen(
 }
 
 @Composable
-private fun UserScreen(
-    userListState: ResponseStatus<List<User>>,
+private fun SearchUsersScreen(
+    searchUserState: SearchUsersState,
     onSearchClick: (String) -> Unit
 ) {
     Column {
         SearchBar(onSearchClick = onSearchClick)
-        when (userListState) {
-            is ResponseStatus.Success -> UserListView(userListState.data ?: emptyList())
-            is ResponseStatus.Error -> ErrorMessage(errorMsg = userListState.message)
-            is ResponseStatus.Loading -> CenteredCircularProgressIndicator()
-            else -> {}
+        if (searchUserState.isLoading) {
+            CenteredCircularProgressIndicator()
+        } else {
+            if (searchUserState.error != null) {
+                ErrorMessage(errorMsg = searchUserState.error)
+            } else if (searchUserState.userList.isNullOrEmpty()) {
+                //TODO handle this case
+                //Text(text = stringResource(R.string.user_not_found))
+            } else {
+                UserListView(searchUserState.userList)
+            }
         }
     }
 }

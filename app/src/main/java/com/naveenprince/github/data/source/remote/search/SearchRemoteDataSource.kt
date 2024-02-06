@@ -1,6 +1,5 @@
-package com.naveenprince.github.model.api
+package com.naveenprince.github.data.source.remote.search
 
-import com.naveenprince.github.model.data.SearchUsersResponse
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 

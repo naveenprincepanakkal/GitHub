@@ -1,7 +1,8 @@
-package com.naveenprince.github.model.repository
+package com.naveenprince.github.data.repository
 
-import com.naveenprince.github.model.api.UsersRemoteDataSource
-import com.naveenprince.github.model.data.UserDetails
+import com.naveenprince.github.data.source.remote.users.UsersRemoteDataSource
+import com.naveenprince.github.domain.model.UserDetails
+import com.naveenprince.github.domain.repository.UsersRepository
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,13 +28,7 @@ class UsersRepositoryImpl @Inject constructor(private val remoteDataSource: User
                     emit(ResponseStatus.Error(it.statusCode, it.message))
                 }
 
-                else -> {
-                    emit(ResponseStatus.Loading())
-                }
             }
-
         }
-
     }
-
 }

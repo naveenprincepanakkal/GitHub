@@ -1,6 +1,5 @@
-package com.naveenprince.github.model.api
+package com.naveenprince.github.utils
 
-import com.naveenprince.github.utils.ResponseStatus
 import retrofit2.Response
 
 /**

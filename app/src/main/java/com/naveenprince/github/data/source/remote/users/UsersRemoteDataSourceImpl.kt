@@ -1,6 +1,6 @@
-package com.naveenprince.github.model.api
+package com.naveenprince.github.data.source.remote.users
 
-import com.naveenprince.github.model.data.UserDetailsResponse
+import com.naveenprince.github.utils.ApiResponse
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
