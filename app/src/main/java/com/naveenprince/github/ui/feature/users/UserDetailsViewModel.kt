@@ -9,6 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,26 +30,32 @@ class UserDetailsViewModel @Inject constructor(private val usersRepository: User
     fun fetchUserDetails(url: String) {
         serviceJob?.cancel()
         serviceJob = viewModelScope.launch {
-            _userDetailsState.value = _userDetailsState.value.copy(
-                isLoading = true,
-                error = null
-            )
+            _userDetailsState.update { state ->
+                state.copy(
+                    isLoading = true,
+                    error = null
+                )
+            }
             usersRepository.fetchUserDetails(url).collect {
                 when (it) {
                     is ResponseStatus.Success -> {
-                        _userDetailsState.value = _userDetailsState.value.copy(
-                            userDetails = it.data,
-                            isLoading = false,
-                            error = null
-                        )
+                        _userDetailsState.update { state ->
+                            state.copy(
+                                userDetails = it.data,
+                                isLoading = false,
+                                error = null
+                            )
+                        }
                     }
 
                     is ResponseStatus.Error -> {
-                        _userDetailsState.value = _userDetailsState.value.copy(
-                            userDetails = null,
-                            isLoading = false,
-                            error = it.message
-                        )
+                        _userDetailsState.update { state ->
+                            state.copy(
+                                userDetails = null,
+                                isLoading = false,
+                                error = it.message
+                            )
+                        }
                     }
                 }
             }

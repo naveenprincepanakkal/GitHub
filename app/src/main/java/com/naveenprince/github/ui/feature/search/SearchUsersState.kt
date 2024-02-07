@@ -8,5 +8,6 @@ import com.naveenprince.github.domain.model.User
 data class SearchUsersState(
     val userList: List<User>? = null,
     val isLoading: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
+    val searchQuery: String = ""
 )

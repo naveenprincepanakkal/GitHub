@@ -9,6 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,26 +30,33 @@ class SearchUsersViewModel @Inject constructor(private val searchRepository: Sea
     fun searchUser(query: String) {
         serviceJob?.cancel()
         serviceJob = viewModelScope.launch {
-            _searchUsersState.value = _searchUsersState.value.copy(
-                isLoading = true,
-                error = null
-            )
-            searchRepository.searchUsers(query).collect {
+            _searchUsersState.update { state ->
+                state.copy(
+                    searchQuery = query,
+                    isLoading = true,
+                    error = null
+                )
+            }
+            searchRepository.searchUsers(_searchUsersState.value.searchQuery).collect {
                 when (it) {
                     is ResponseStatus.Success -> {
-                        _searchUsersState.value = _searchUsersState.value.copy(
-                            userList = it.data,
-                            isLoading = false,
-                            error = null
-                        )
+                        _searchUsersState.update { state ->
+                            state.copy(
+                                userList = it.data,
+                                isLoading = false,
+                                error = null
+                            )
+                        }
                     }
 
                     is ResponseStatus.Error -> {
-                        _searchUsersState.value = _searchUsersState.value.copy(
-                            userList = null,
-                            isLoading = false,
-                            error = it.message
-                        )
+                        _searchUsersState.update { state ->
+                            state.copy(
+                                userList = null,
+                                isLoading = false,
+                                error = it.message
+                            )
+                        }
                     }
                 }
             }
