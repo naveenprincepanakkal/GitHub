@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class SearchUsersViewModel @Inject constructor(private val searchRepository: Sea
     ViewModel() {
 
     private var _searchUsersState = MutableStateFlow(SearchUsersState())
-    val searchUsersState: StateFlow<SearchUsersState> = _searchUsersState
+    val searchUsersState: StateFlow<SearchUsersState> = _searchUsersState.asStateFlow()
 
     private var serviceJob: Job? = null
 

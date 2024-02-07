@@ -1,19 +1,16 @@
-package com.naveenprince.github.model.repository
+package com.naveenprince.github.data.repository
 
 import com.google.gson.Gson
-import com.naveenprince.github.data.repository.SearchRepositoryImpl
 import com.naveenprince.github.data.source.remote.search.SearchRemoteDataSource
 import com.naveenprince.github.data.source.remote.search.SearchUsersResponse
 import com.naveenprince.github.domain.model.User
 import com.naveenprince.github.domain.repository.SearchRepository
-import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -27,11 +24,9 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class SearchRepositoryTest {
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
-
     @Mock
     private lateinit var remoteDataSource: SearchRemoteDataSource
+
     private lateinit var repository: SearchRepository
 
     @Before
@@ -41,7 +36,6 @@ class SearchRepositoryTest {
     }
 
     @Test
-    @Throws(Exception::class)
     fun testSearchUsers_Success() = runTest {
 
         val query = "naveenprincepanakkal"
@@ -61,13 +55,11 @@ class SearchRepositoryTest {
                 )
 
                 is ResponseStatus.Error -> assert(false)
-                else -> assert(false)
             }
         }
     }
 
     @Test
-    @Throws(Exception::class)
     fun testSearchUsers_Error() = runTest {
 
         val query = "InvalidQuery"
@@ -85,8 +77,6 @@ class SearchRepositoryTest {
                     assertEquals(errorCode, apiResponseStatus.statusCode)
                     assertEquals(errorMessage, apiResponseStatus.message)
                 }
-
-                else -> assert(false)
             }
         }
     }

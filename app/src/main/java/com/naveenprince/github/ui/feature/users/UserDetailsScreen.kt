@@ -45,7 +45,7 @@ fun UserDetailsScreen(
     LaunchedEffect(true) {
         viewModel.fetchUserDetails(userUrl)
     }
-    val userDetailsState by viewModel.userDetailsState.collectAsState(initial = UserDetailsState())
+    val userDetailsState by viewModel.userDetailsState.collectAsState()
     UserDetailsScreen(userDetailsState)
 }
 

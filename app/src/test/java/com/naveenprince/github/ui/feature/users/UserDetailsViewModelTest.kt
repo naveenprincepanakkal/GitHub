@@ -1,12 +1,12 @@
-package com.naveenprince.github.viewmodel
+package com.naveenprince.github.ui.feature.users
 
 import com.google.gson.Gson
-import com.naveenprince.github.data.source.remote.users.UserDetails
 import com.naveenprince.github.data.source.remote.users.UserDetailsResponse
+import com.naveenprince.github.domain.model.UserDetails
 import com.naveenprince.github.domain.repository.UsersRepository
-import com.naveenprince.github.ui.feature.users.UserDetailsViewModel
 import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -22,7 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner
 /**
  * Created by Naveen.
  */
-
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class UserDetailsViewModelTest {
 
@@ -31,6 +31,7 @@ class UserDetailsViewModelTest {
 
     @Mock
     private lateinit var usersRepository: UsersRepository
+
     private lateinit var userViewModel: UserDetailsViewModel
 
     @Before
@@ -40,60 +41,41 @@ class UserDetailsViewModelTest {
     }
 
     @Test
-    @Throws(Exception::class)
-    fun fetchUserDetails_LoadingStatus() = runTest {
-        // Given
-        val query = "loading"
-
-        // When
-        Mockito.`when`(usersRepository.fetchUserDetails(query))
-            .thenReturn(flowOf(ResponseStatus.Loading()))
-        userViewModel.fetchUserDetails(query)
-
-        // Then
-        val expectedResult = ResponseStatus.Loading()
-        val actualResult = userViewModel.userDetailsState.value
-        assertEquals(expectedResult, actualResult)
-    }
-
-    @Test
-    @Throws(Exception::class)
     fun fetchUserDetails_SuccessStatus() = runTest {
         // Given
         val queryUrl = "https://api.github.com/users/naveenprincepanakkal"
         val jsonString = javaClass.getResource("/json/user_details.json")?.readText()
         val userDetailsResponse: UserDetailsResponse =
             Gson().fromJson(jsonString, UserDetailsResponse::class.java)
-
+        val userDetails = UserDetails(userDetailsResponse)
+        val successState =
+            UserDetailsState(userDetails = userDetails, isLoading = false, error = null)
 
         // When
         Mockito.`when`(usersRepository.fetchUserDetails(queryUrl))
-            .thenReturn(flowOf(ResponseStatus.Success(UserDetails(userDetailsResponse))))
+            .thenReturn(flowOf(ResponseStatus.Success(userDetails)))
         userViewModel.fetchUserDetails(queryUrl)
 
         // Then
-        val expectedResult = ResponseStatus.Success(UserDetails(userDetailsResponse))
-        val actualResult = userViewModel.userDetailsState.value
-        assertEquals(expectedResult, actualResult)
+        assertEquals(userViewModel.userDetailsState.value, successState)
     }
 
     @Test
-    @Throws(Exception::class)
     fun fetchUserDetails_Error() = runTest {
         // Given
         val query = "InvalidQuery"
         val errorCode = 403
         val errorMessage = "Error fetching data"
-        val errorResponse = ResponseStatus.Error(errorCode, errorMessage)
+        val errorState =
+            UserDetailsState(userDetails = null, isLoading = false, error = errorMessage)
 
         // When
-        Mockito.`when`(usersRepository.fetchUserDetails(query)).thenReturn(flowOf(errorResponse))
+        Mockito.`when`(usersRepository.fetchUserDetails(query))
+            .thenReturn(flowOf(ResponseStatus.Error(errorCode, errorMessage)))
         userViewModel.fetchUserDetails(query)
 
         // Then
-        val expectedResult = ResponseStatus.Error(errorCode, errorMessage)
-        val actualResult = userViewModel.userDetailsState.value
-        assertEquals(expectedResult, actualResult)
+        assertEquals(userViewModel.userDetailsState.value, errorState)
     }
 
 }

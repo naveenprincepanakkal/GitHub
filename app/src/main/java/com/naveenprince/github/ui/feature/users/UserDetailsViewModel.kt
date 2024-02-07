@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class UserDetailsViewModel @Inject constructor(private val usersRepository: User
     ViewModel() {
 
     private var _userDetailsState = MutableStateFlow(UserDetailsState())
-    val userDetailsState: StateFlow<UserDetailsState> = _userDetailsState
+    val userDetailsState: StateFlow<UserDetailsState> = _userDetailsState.asStateFlow()
 
     private var serviceJob: Job? = null
 

@@ -40,6 +40,7 @@ import coil.compose.AsyncImage
 import com.naveenprince.github.R
 import com.naveenprince.github.domain.model.User
 import com.naveenprince.github.ui.compose.CenteredCircularProgressIndicator
+import com.naveenprince.github.ui.compose.CenteredText
 import com.naveenprince.github.ui.compose.ErrorMessage
 import com.naveenprince.github.ui.feature.users.UserDetailsScreen
 import com.naveenprince.github.ui.theme.GitHubUsersTheme
@@ -54,7 +55,7 @@ import com.naveenprince.github.ui.theme.margin_medium
 fun SearchUsersScreen(
     viewModel: SearchUsersViewModel = hiltViewModel(),
 ) {
-    val searchUserState by viewModel.searchUsersState.collectAsState(initial = SearchUsersState())
+    val searchUserState by viewModel.searchUsersState.collectAsState()
     val focusManager = LocalFocusManager.current
     SearchUsersScreen(
         searchUserState,
@@ -79,8 +80,8 @@ private fun SearchUsersScreen(
             if (searchUserState.error != null) {
                 ErrorMessage(errorMsg = searchUserState.error)
             } else if (searchUserState.userList.isNullOrEmpty()) {
-                //TODO handle this case
-                //Text(text = stringResource(R.string.user_not_found))
+                if (searchUserState.userList != null)
+                    CenteredText(text = stringResource(R.string.user_not_found))
             } else {
                 UserListView(searchUserState.userList)
             }
