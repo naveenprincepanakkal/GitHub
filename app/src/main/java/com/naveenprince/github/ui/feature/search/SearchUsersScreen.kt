@@ -11,16 +11,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -42,7 +40,6 @@ import com.naveenprince.github.domain.model.User
 import com.naveenprince.github.ui.compose.CenteredCircularProgressIndicator
 import com.naveenprince.github.ui.compose.CenteredText
 import com.naveenprince.github.ui.compose.ErrorMessage
-import com.naveenprince.github.ui.feature.users.UserDetailsScreen
 import com.naveenprince.github.ui.theme.GitHubUsersTheme
 import com.naveenprince.github.ui.theme.margin_large
 import com.naveenprince.github.ui.theme.margin_medium
@@ -53,6 +50,7 @@ import com.naveenprince.github.ui.theme.margin_medium
 
 @Composable
 fun SearchUsersScreen(
+    onUserClick: (String) -> Unit,
     viewModel: SearchUsersViewModel = hiltViewModel(),
 ) {
     val searchUserState by viewModel.searchUsersState.collectAsState()
@@ -64,13 +62,16 @@ fun SearchUsersScreen(
                 viewModel.searchUser(query)
                 focusManager.clearFocus()
             }
-        })
+        },
+        onUserClick = { onUserClick(it.url) }
+    )
 }
 
 @Composable
 private fun SearchUsersScreen(
     searchUserState: SearchUsersState,
-    onSearchClick: (String) -> Unit
+    onSearchClick: (String) -> Unit,
+    onUserClick: (User) -> Unit,
 ) {
     Column {
         SearchBar(onSearchClick = onSearchClick)
@@ -83,43 +84,24 @@ private fun SearchUsersScreen(
                 if (searchUserState.userList != null)
                     CenteredText(text = stringResource(R.string.user_not_found))
             } else {
-                UserListView(searchUserState.userList)
+                UserListView(searchUserState.userList, onUserClick)
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun UserListView(userList: List<User>) {
-
-    val sheetState = rememberModalBottomSheetState()
-    var showBottomSheet by rememberSaveable { mutableStateOf(false) }
-    var userUrl by rememberSaveable { mutableStateOf("") }
+private fun UserListView(userList: List<User>, onUserClick: (User) -> Unit) {
 
     Column {
         LazyColumn {
-            items(userList) { user ->
-                UserCard(user, onUserClick = {
-                    userUrl = it.url
-                    showBottomSheet = true
-                })
-            }
-        }
-        if (showBottomSheet) {
-            ModalBottomSheet(
-                onDismissRequest = {
-                    showBottomSheet = false
-                },
-                sheetState = sheetState
-            ) {
-                UserDetailsScreen(userUrl)
+            items(userList) {
+                UserCard(it, onUserClick)
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserCard(
     user: User,
@@ -173,14 +155,22 @@ fun SearchBar(
         onValueChange = {
             queryString = it
         },
-        trailingIcon = {
-            IconButton(onClick = {
-                onSearchClick(queryString)
-            }) {
+        leadingIcon = {
+            IconButton(onClick = { onSearchClick(queryString) }) {
                 Icon(
-                    imageVector = Icons.Default.Search,
+                    Icons.Default.Search,
                     contentDescription = "Search",
                 )
+            }
+        },
+        trailingIcon = {
+            if (queryString.isNotEmpty()) {
+                IconButton(onClick = { queryString = "" }) {
+                    Icon(
+                        Icons.Default.Clear,
+                        contentDescription = "Clear",
+                    )
+                }
             }
         },
         placeholder = {

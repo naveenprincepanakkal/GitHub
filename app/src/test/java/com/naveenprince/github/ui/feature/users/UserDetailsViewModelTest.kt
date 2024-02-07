@@ -6,7 +6,6 @@ import com.naveenprince.github.domain.model.UserDetails
 import com.naveenprince.github.domain.repository.UsersRepository
 import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -22,7 +21,6 @@ import org.mockito.junit.MockitoJUnitRunner
 /**
  * Created by Naveen.
  */
-@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class UserDetailsViewModelTest {
 

@@ -1,15 +1,20 @@
 package com.naveenprince.github.ui.feature.users
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -40,35 +45,44 @@ import com.naveenprince.github.ui.theme.margin_xlarge
 @Composable
 fun UserDetailsScreen(
     userUrl: String,
+    onBackClick: () -> Unit,
     viewModel: UserDetailsViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(true) {
         viewModel.fetchUserDetails(userUrl)
     }
     val userDetailsState by viewModel.userDetailsState.collectAsState()
-    UserDetailsScreen(userDetailsState)
+    UserDetailsScreen(userDetailsState, onBackClick)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserDetailsScreen(
-    userDetailsState: UserDetailsState
+    userDetailsState: UserDetailsState,
+    onBackClick: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.4f),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        if (userDetailsState.isLoading) {
-            CenteredCircularProgressIndicator()
-        } else {
-            if (userDetailsState.error != null) {
-                ErrorMessage(errorMsg = userDetailsState.error)
-            } else if (userDetailsState.userDetails == null) {
-                Text(text = stringResource(R.string.user_not_found))
+    Column {
+        TopAppBar(title = { },
+            navigationIcon = {
+                IconButton(onClick = onBackClick) {
+                    Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Navigate back")
+                }
+            })
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.5f),
+        ) {
+            if (userDetailsState.isLoading) {
+                CenteredCircularProgressIndicator()
             } else {
-                UserDetails(userDetailsState.userDetails)
+                if (userDetailsState.error != null) {
+                    ErrorMessage(errorMsg = userDetailsState.error)
+                } else if (userDetailsState.userDetails == null) {
+                    Text(text = stringResource(R.string.user_not_found))
+                } else {
+                    UserDetails(userDetailsState.userDetails)
+                }
             }
         }
     }
