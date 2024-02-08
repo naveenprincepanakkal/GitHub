@@ -1,6 +1,5 @@
 package com.naveenprince.github.data.source.remote.users
 
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Url
 
@@ -12,6 +11,6 @@ import retrofit2.http.Url
 interface UsersService {
 
     @GET
-    suspend fun userDetails(@Url url: String): Response<UserDetailsResponse>
+    suspend fun userDetails(@Url url: String): UserDetailsResponse
 
 }

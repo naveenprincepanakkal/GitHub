@@ -7,5 +7,5 @@ package com.naveenprince.github.utils
  */
 sealed class ResponseStatus<out T> {
     data class Success<T>(val data: T?) : ResponseStatus<T>()
-    data class Error(val statusCode: Int?, val message: String) : ResponseStatus<Nothing>()
+    data class Error(val statusCode: Int? = null, val message: String) : ResponseStatus<Nothing>()
 }

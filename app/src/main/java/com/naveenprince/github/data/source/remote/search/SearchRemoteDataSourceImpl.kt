@@ -1,9 +1,10 @@
 package com.naveenprince.github.data.source.remote.search
 
-import com.naveenprince.github.utils.ApiResponse
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -16,7 +17,19 @@ class SearchRemoteDataSourceImpl @Inject constructor(
 ) : SearchRemoteDataSource {
 
     override fun searchUsers(query: String): Flow<ResponseStatus<SearchUsersResponse>> = flow {
-        emit(ApiResponse.create(searchService.searchUsers(query)))
+
+        try {
+            emit(ResponseStatus.Success(data = searchService.searchUsers(query)))
+        } catch (e: IOException) {
+            e.printStackTrace()
+            emit(ResponseStatus.Error(message = "Network Error"))
+        } catch (e: HttpException) {
+            e.printStackTrace()
+            emit(ResponseStatus.Error(message = "HTTP Error"))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(ResponseStatus.Error(message = e.message ?: "An unknown error occurred."))
+        }
     }
 
 }

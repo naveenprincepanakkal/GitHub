@@ -1,6 +1,5 @@
 package com.naveenprince.github.data.source.remote.search
 
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,6 +11,6 @@ import retrofit2.http.Query
 interface SearchService {
 
     @GET("search/users")
-    suspend fun searchUsers(@Query("q") query: String): Response<SearchUsersResponse>
+    suspend fun searchUsers(@Query("q") query: String): SearchUsersResponse
 
 }

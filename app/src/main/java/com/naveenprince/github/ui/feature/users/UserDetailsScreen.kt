@@ -48,7 +48,7 @@ fun UserDetailsScreen(
     onBackClick: () -> Unit,
     viewModel: UserDetailsViewModel = hiltViewModel(),
 ) {
-    LaunchedEffect(true) {
+    LaunchedEffect(key1 = userUrl) {
         viewModel.fetchUserDetails(userUrl)
     }
     val userDetailsState by viewModel.userDetailsState.collectAsState()
