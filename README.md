@@ -2,7 +2,7 @@
 
 The GitHub User Search App is an Android application that allows you to search for GitHub users and view their details.
 
-This Android application, built using the MVVM (Model-View-ViewModel) architecture, relies on several powerful libraries and technologies to provide an efficient and feature-rich user experience. Below are the key dependencies used in this project:
+This Android application, built using the MVVM (Model-View-ViewModel) Clean architecture, relies on several powerful libraries and technologies to provide an efficient and feature-rich user experience. Below are the key dependencies used in this project:
 
 
 ## Features
@@ -22,10 +22,8 @@ This Android application, built using the MVVM (Model-View-ViewModel) architectu
 
 
 ### ToDo
-- UI testing in compose
 - Adding build flavors
 - Configuring proguard for production build
-- Need to handle various screen sizes for tablet and horizontal screen orientations
 
 
 ## Contact
