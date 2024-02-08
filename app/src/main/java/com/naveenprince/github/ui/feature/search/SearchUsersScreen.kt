@@ -122,18 +122,18 @@ fun UserCard(
         ) {
 
             AsyncImage(
-                modifier = Modifier.weight(1.0f),
+                modifier = Modifier.weight(0.3f),
                 model = user.avatarUrl,
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,
                 contentDescription = "Description",
-                placeholder = painterResource(id = R.drawable.loading)
+                placeholder = painterResource(id = R.drawable.loading),
             )
 
             Text(
                 modifier = Modifier
                     .padding(margin_medium)
-                    .weight(2.0f),
+                    .weight(1.0f),
                 text = user.login
             )
         }
@@ -189,7 +189,7 @@ fun SearchBar(
 @Composable
 fun Preview() {
     GitHubUsersTheme {
-        SearchBar(onSearchClick = { })
+        //SearchBar(onSearchClick = { })
         //UserCard(null, onUserClick = { })
     }
 }

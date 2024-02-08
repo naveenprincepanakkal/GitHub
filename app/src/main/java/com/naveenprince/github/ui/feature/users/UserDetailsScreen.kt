@@ -2,7 +2,6 @@ package com.naveenprince.github.ui.feature.users
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -69,9 +68,7 @@ fun UserDetailsScreen(
                 }
             })
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.5f),
+            modifier = Modifier.fillMaxWidth(),
         ) {
             if (userDetailsState.isLoading) {
                 CenteredCircularProgressIndicator()
