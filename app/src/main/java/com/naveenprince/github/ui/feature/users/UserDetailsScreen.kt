@@ -22,7 +22,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -107,9 +106,8 @@ fun UserDetails(userDetails: UserDetails) {
         ) {
             AsyncImage(
                 model = userDetails.avatarUrl,
-                contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,
-                contentDescription = "Description",
+                contentDescription = "User Image",
                 placeholder = painterResource(id = R.drawable.loading)
             )
             Text(text = userDetails.login)
