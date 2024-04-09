@@ -48,11 +48,11 @@ fun UserDetailsScreen(
     onBackClick: () -> Unit,
     viewModel: UserDetailsViewModel = hiltViewModel(),
 ) {
-    val isDataLoaded = rememberSaveable { mutableStateOf(false) }
+    val fetchedForUrl = rememberSaveable { mutableStateOf("") }
     LaunchedEffect(userUrl) {
-        if (!isDataLoaded.value) {
+        if (fetchedForUrl.value != userUrl) {
             viewModel.fetchUserDetails(userUrl)
-            isDataLoaded.value = true
+            fetchedForUrl.value = userUrl
         }
     }
     val userDetailsState by viewModel.userDetailsState.collectAsState()
