@@ -18,6 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -47,8 +49,12 @@ fun UserDetailsScreen(
     onBackClick: () -> Unit,
     viewModel: UserDetailsViewModel = hiltViewModel(),
 ) {
-    LaunchedEffect(key1 = userUrl) {
-        viewModel.fetchUserDetails(userUrl)
+    val isDataLoaded = rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(userUrl) {
+        if (!isDataLoaded.value) {
+            viewModel.fetchUserDetails(userUrl)
+            isDataLoaded.value = true
+        }
     }
     val userDetailsState by viewModel.userDetailsState.collectAsState()
     UserDetailsScreen(userDetailsState, onBackClick)
