@@ -58,6 +58,7 @@ class UsersRepositoryTest {
                 is ResponseStatus.Error -> assert(false)
             }
         }
+        Mockito.verify(remoteDataSource).userDetails(queryUrl)
     }
 
     @Test
@@ -80,5 +81,6 @@ class UsersRepositoryTest {
                 }
             }
         }
+        Mockito.verify(remoteDataSource).userDetails(queryUrl)
     }
 }

@@ -57,6 +57,7 @@ class SearchRepositoryTest {
                 is ResponseStatus.Error -> assert(false)
             }
         }
+        Mockito.verify(remoteDataSource).searchUsers(query)
     }
 
     @Test
@@ -79,5 +80,6 @@ class SearchRepositoryTest {
                 }
             }
         }
+        Mockito.verify(remoteDataSource).searchUsers(query)
     }
 }
