@@ -1,9 +1,11 @@
 package com.naveenprince.github.ui.feature.search
 
 import com.google.gson.Gson
-import com.naveenprince.github.data.source.remote.search.SearchUsersResponse
-import com.naveenprince.github.domain.model.User
-import com.naveenprince.github.domain.repository.SearchRepository
+import com.naveenprince.github.data.search.source.remote.SearchUsersResponse
+import com.naveenprince.github.domain.search.model.User
+import com.naveenprince.github.domain.search.repository.SearchRepository
+import com.naveenprince.github.ui.search.SearchUsersState
+import com.naveenprince.github.ui.search.SearchUsersViewModel
 import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.flowOf

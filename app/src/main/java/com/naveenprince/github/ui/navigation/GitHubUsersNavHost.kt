@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.naveenprince.github.ui.feature.search.SearchUsersScreen
-import com.naveenprince.github.ui.feature.users.UserDetailsScreen
+import com.naveenprince.github.ui.search.SearchUsersScreen
+import com.naveenprince.github.ui.users.UserDetailsScreen
 import java.net.URLDecoder
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets

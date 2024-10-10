@@ -1,9 +1,11 @@
 package com.naveenprince.github.ui.feature.users
 
 import com.google.gson.Gson
-import com.naveenprince.github.data.source.remote.users.UserDetailsResponse
-import com.naveenprince.github.domain.model.UserDetails
-import com.naveenprince.github.domain.repository.UsersRepository
+import com.naveenprince.github.data.users.source.remote.UserDetailsResponse
+import com.naveenprince.github.domain.users.model.UserDetails
+import com.naveenprince.github.domain.users.repository.UsersRepository
+import com.naveenprince.github.ui.users.UserDetailsState
+import com.naveenprince.github.ui.users.UserDetailsViewModel
 import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.flowOf

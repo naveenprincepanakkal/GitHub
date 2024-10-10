@@ -1,10 +1,11 @@
 package com.naveenprince.github.data.repository
 
 import com.google.gson.Gson
-import com.naveenprince.github.data.source.remote.users.UserDetailsResponse
-import com.naveenprince.github.data.source.remote.users.UsersRemoteDataSource
-import com.naveenprince.github.domain.model.UserDetails
-import com.naveenprince.github.domain.repository.UsersRepository
+import com.naveenprince.github.data.users.source.remote.UserDetailsResponse
+import com.naveenprince.github.data.users.source.remote.UsersRemoteDataSource
+import com.naveenprince.github.data.users.repository.UsersRepositoryImpl
+import com.naveenprince.github.domain.users.model.UserDetails
+import com.naveenprince.github.domain.users.repository.UsersRepository
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
