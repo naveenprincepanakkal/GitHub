@@ -1,5 +1,6 @@
 package com.naveenprince.github.data.users.repository
 
+import com.naveenprince.github.data.users.mapper.UserDetailsMapper
 import com.naveenprince.github.data.users.source.remote.UsersRemoteDataSource
 import com.naveenprince.github.domain.users.model.UserDetails
 import com.naveenprince.github.domain.users.repository.UsersRepository
@@ -20,7 +21,7 @@ class UsersRepositoryImpl @Inject constructor(private val remoteDataSource: User
         remoteDataSource.userDetails(url).collect {
             when (it) {
                 is ResponseStatus.Success -> {
-                    val userDetails = it.data?.let { userDetails -> UserDetails(userDetails) }
+                    val userDetails = it.data?.let { userDetails -> UserDetailsMapper.fromResponse(userDetails) }
                     emit(ResponseStatus.Success(userDetails))
                 }
 

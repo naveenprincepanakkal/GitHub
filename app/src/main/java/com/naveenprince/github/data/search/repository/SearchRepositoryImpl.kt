@@ -1,5 +1,6 @@
 package com.naveenprince.github.data.search.repository
 
+import com.naveenprince.github.data.search.mapper.UserMapper
 import com.naveenprince.github.data.search.source.remote.SearchRemoteDataSource
 import com.naveenprince.github.domain.search.model.User
 import com.naveenprince.github.domain.search.repository.SearchRepository
@@ -21,7 +22,7 @@ class SearchRepositoryImpl @Inject constructor(private val remoteDataSource: Sea
             when (it) {
                 is ResponseStatus.Success -> {
                     val user: List<User> =
-                        it.data?.userList?.map { users -> User(users) } ?: listOf()
+                        it.data?.userList?.map { users -> UserMapper.fromResponse(users) } ?: listOf()
                     emit(ResponseStatus.Success(user))
                 }
 
