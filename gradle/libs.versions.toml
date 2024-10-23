@@ -1,6 +1,6 @@
 [versions]
 activity-compose = "1.9.3"
-android-gradle-plugin = "8.6.1"
+android-gradle-plugin = "8.7.1"
 coil-compose = "2.7.0"
 compose-bom = "2024.10.00"
 compose-ui = "1.7.4"

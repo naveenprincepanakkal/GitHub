@@ -1,6 +1,7 @@
 package com.naveenprince.github.data.repository
 
 import com.google.gson.Gson
+import com.naveenprince.github.data.users.mapper.UserDetailsMapper
 import com.naveenprince.github.data.users.source.remote.UserDetailsResponse
 import com.naveenprince.github.data.users.source.remote.UsersRemoteDataSource
 import com.naveenprince.github.data.users.repository.UsersRepositoryImpl
@@ -52,7 +53,7 @@ class UsersRepositoryTest {
         result.collect { apiResponseStatus ->
             when (apiResponseStatus) {
                 is ResponseStatus.Success -> assertEquals(
-                    UserDetails(userDetailsResponse),
+                    UserDetailsMapper.fromResponse(userDetailsResponse),
                     apiResponseStatus.data
                 )
 

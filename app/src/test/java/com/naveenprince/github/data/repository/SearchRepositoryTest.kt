@@ -1,6 +1,7 @@
 package com.naveenprince.github.data.repository
 
 import com.google.gson.Gson
+import com.naveenprince.github.data.search.mapper.UserMapper
 import com.naveenprince.github.data.search.repository.SearchRepositoryImpl
 import com.naveenprince.github.data.search.source.remote.SearchRemoteDataSource
 import com.naveenprince.github.data.search.source.remote.SearchUsersResponse
@@ -51,7 +52,7 @@ class SearchRepositoryTest {
         result.collect { apiResponseStatus ->
             when (apiResponseStatus) {
                 is ResponseStatus.Success -> assertEquals(
-                    searchUsersResponse.userList.map { User(it) },
+                    searchUsersResponse.userList.map { UserMapper.fromResponse(it) },
                     apiResponseStatus.data
                 )
 
