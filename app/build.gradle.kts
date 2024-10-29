@@ -84,7 +84,9 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 
     //Mockito
-    testImplementation(libs.mockito.core)
+    //testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockito.inline)
 
     //Hilt
     androidTestImplementation(libs.hilt.android.testing)
