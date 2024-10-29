@@ -1,10 +1,9 @@
-package com.naveenprince.github.data.repository
+package com.naveenprince.github.data.users.repository
 
 import com.google.gson.Gson
 import com.naveenprince.github.data.users.mapper.UserDetailsMapper
 import com.naveenprince.github.data.users.source.remote.UserDetailsResponse
 import com.naveenprince.github.data.users.source.remote.UsersRemoteDataSource
-import com.naveenprince.github.data.users.repository.UsersRepositoryImpl
 import com.naveenprince.github.domain.users.model.UserDetails
 import com.naveenprince.github.domain.users.repository.UsersRepository
 import com.naveenprince.github.utils.ResponseStatus

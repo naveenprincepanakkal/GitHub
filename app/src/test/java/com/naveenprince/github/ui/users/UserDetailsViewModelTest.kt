@@ -1,11 +1,9 @@
-package com.naveenprince.github.ui.feature.users
+package com.naveenprince.github.ui.users
 
 import com.google.gson.Gson
+import com.naveenprince.github.data.users.mapper.UserDetailsMapper
 import com.naveenprince.github.data.users.source.remote.UserDetailsResponse
-import com.naveenprince.github.domain.users.model.UserDetails
 import com.naveenprince.github.domain.users.repository.UsersRepository
-import com.naveenprince.github.ui.users.UserDetailsState
-import com.naveenprince.github.ui.users.UserDetailsViewModel
 import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.flowOf
@@ -47,7 +45,7 @@ class UserDetailsViewModelTest {
         val jsonString = javaClass.getResource("/json/user_details.json")?.readText()
         val userDetailsResponse: UserDetailsResponse =
             Gson().fromJson(jsonString, UserDetailsResponse::class.java)
-        val userDetails = UserDetails(userDetailsResponse)
+        val userDetails = UserDetailsMapper.fromResponse(userDetailsResponse)
         val successState =
             UserDetailsState(userDetails = userDetails, isLoading = false, error = null)
 

@@ -1,4 +1,4 @@
-package com.naveenprince.github.di
+package com.naveenprince.github.data.di
 
 import com.naveenprince.github.data.users.repository.UsersRepositoryImpl
 import com.naveenprince.github.data.users.source.remote.UsersRemoteDataSource

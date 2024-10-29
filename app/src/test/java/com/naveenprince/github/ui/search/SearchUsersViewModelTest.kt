@@ -1,11 +1,9 @@
-package com.naveenprince.github.ui.feature.search
+package com.naveenprince.github.ui.search
 
 import com.google.gson.Gson
+import com.naveenprince.github.data.search.mapper.UserMapper
 import com.naveenprince.github.data.search.source.remote.SearchUsersResponse
-import com.naveenprince.github.domain.search.model.User
 import com.naveenprince.github.domain.search.repository.SearchRepository
-import com.naveenprince.github.ui.search.SearchUsersState
-import com.naveenprince.github.ui.search.SearchUsersViewModel
 import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.flowOf
@@ -48,8 +46,8 @@ class SearchUsersViewModelTest {
         val jsonString = javaClass.getResource("/json/user_search.json")?.readText()
         val searchUsersResponse: SearchUsersResponse =
             Gson().fromJson(jsonString, SearchUsersResponse::class.java)
-        val userList = searchUsersResponse.userList.map { User(it) }
-        val successStatus = SearchUsersState(userList = userList, isLoading = false, error = null)
+        val userList = searchUsersResponse.userList.map { UserMapper.fromResponse(it) }
+        val successStatus = SearchUsersState(userList = userList, isLoading = false, error = null, searchQuery = query)
 
         // When
         Mockito.`when`(searchRepository.searchUsers(query))
@@ -66,7 +64,7 @@ class SearchUsersViewModelTest {
         val query = "InvalidQuery"
         val errorCode = 403
         val errorMessage = "Error fetching data"
-        val errorState = SearchUsersState(userList = null, isLoading = false, error = errorMessage)
+        val errorState = SearchUsersState(userList = null, isLoading = false, error = errorMessage, searchQuery = query)
 
         // When
         Mockito.`when`(searchRepository.searchUsers(query))

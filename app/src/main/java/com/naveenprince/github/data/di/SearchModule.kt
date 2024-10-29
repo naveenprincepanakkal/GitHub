@@ -1,4 +1,4 @@
-package com.naveenprince.github.di
+package com.naveenprince.github.data.di
 
 import com.naveenprince.github.data.search.repository.SearchRepositoryImpl
 import com.naveenprince.github.data.search.source.remote.SearchRemoteDataSource

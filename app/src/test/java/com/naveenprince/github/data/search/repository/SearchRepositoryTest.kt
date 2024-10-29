@@ -1,8 +1,7 @@
-package com.naveenprince.github.data.repository
+package com.naveenprince.github.data.search.repository
 
 import com.google.gson.Gson
 import com.naveenprince.github.data.search.mapper.UserMapper
-import com.naveenprince.github.data.search.repository.SearchRepositoryImpl
 import com.naveenprince.github.data.search.source.remote.SearchRemoteDataSource
 import com.naveenprince.github.data.search.source.remote.SearchUsersResponse
 import com.naveenprince.github.domain.search.model.User
