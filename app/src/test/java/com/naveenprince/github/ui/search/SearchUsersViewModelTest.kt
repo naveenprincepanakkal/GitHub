@@ -1,6 +1,5 @@
 package com.naveenprince.github.ui.search
 
-import com.google.gson.Gson
 import com.naveenprince.github.data.search.mapper.UserMapper
 import com.naveenprince.github.data.search.source.remote.SearchUsersResponse
 import com.naveenprince.github.domain.search.repository.SearchRepository
@@ -8,6 +7,7 @@ import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -45,9 +45,14 @@ class SearchUsersViewModelTest {
         val query = "naveenprincepanakkal"
         val jsonString = javaClass.getResource("/json/user_search.json")?.readText()
         val searchUsersResponse: SearchUsersResponse =
-            Gson().fromJson(jsonString, SearchUsersResponse::class.java)
+            Json.decodeFromString<SearchUsersResponse>(jsonString.toString())
         val userList = searchUsersResponse.userList.map { UserMapper.fromResponse(it) }
-        val successStatus = SearchUsersState(userList = userList, isLoading = false, error = null, searchQuery = query)
+        val successStatus = SearchUsersState(
+            userList = userList,
+            isLoading = false,
+            error = null,
+            searchQuery = query
+        )
 
         // When
         Mockito.`when`(searchRepository.searchUsers(query))
@@ -64,7 +69,12 @@ class SearchUsersViewModelTest {
         val query = "InvalidQuery"
         val errorCode = 403
         val errorMessage = "Error fetching data"
-        val errorState = SearchUsersState(userList = null, isLoading = false, error = errorMessage, searchQuery = query)
+        val errorState = SearchUsersState(
+            userList = null,
+            isLoading = false,
+            error = errorMessage,
+            searchQuery = query
+        )
 
         // When
         Mockito.`when`(searchRepository.searchUsers(query))

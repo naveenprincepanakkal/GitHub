@@ -1,6 +1,5 @@
 package com.naveenprince.github.data.users.repository
 
-import com.google.gson.Gson
 import com.naveenprince.github.data.users.mapper.UserDetailsMapper
 import com.naveenprince.github.data.users.source.remote.UserDetailsResponse
 import com.naveenprince.github.data.users.source.remote.UsersRemoteDataSource
@@ -10,6 +9,7 @@ import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -42,7 +42,7 @@ class UsersRepositoryTest {
         val queryUrl = "https://api.github.com/users/naveenprincepanakkal"
         val jsonString = javaClass.getResource("/json/user_details.json")?.readText()
         val userDetailsResponse: UserDetailsResponse =
-            Gson().fromJson(jsonString, UserDetailsResponse::class.java)
+            Json.decodeFromString<UserDetailsResponse>(jsonString.toString())
 
         Mockito.`when`(remoteDataSource.userDetails(queryUrl))
             .thenReturn(flowOf(ResponseStatus.Success(userDetailsResponse)))

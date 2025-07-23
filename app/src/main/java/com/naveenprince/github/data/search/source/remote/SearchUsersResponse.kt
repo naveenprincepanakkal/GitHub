@@ -1,104 +1,108 @@
 package com.naveenprince.github.data.search.source.remote
 
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
 
-import com.google.gson.annotations.SerializedName
-
+@Serializable
 data class SearchUsersResponse(
-    @SerializedName("incomplete_results")
+    @SerialName("incomplete_results")
     val incompleteResults: Boolean,
-    @SerializedName("items")
+    @SerialName("items")
     val userList: List<UserResponse> = listOf(),
-    @SerializedName("total_count")
+    @SerialName("total_count")
     val totalCount: Int
 )
 
+@Serializable
 data class UserResponse(
-    @SerializedName("avatar_url")
+    @SerialName("avatar_url")
     val avatarUrl: String,
-    @SerializedName("bio")
-    val bio: String?,
-    @SerializedName("blog")
-    val blog: String?,
-    @SerializedName("company")
-    val company: String?,
-    @SerializedName("created_at")
-    val createdAt: String?,
-    @SerializedName("email")
-    val email: String?,
-    @SerializedName("events_url")
+    @SerialName("bio")
+    val bio: String? = null,
+    @SerialName("blog")
+    val blog: String? = null,
+    @SerialName("company")
+    val company: String? = null,
+    @SerialName("created_at")
+    val createdAt: String? = null,
+    @SerialName("email")
+    val email: String? = null,
+    @SerialName("events_url")
     val eventsUrl: String,
-    @SerializedName("followers")
-    val followers: Int?,
-    @SerializedName("followers_url")
+    @SerialName("followers")
+    val followers: Int? = null,
+    @SerialName("followers_url")
     val followersUrl: String,
-    @SerializedName("following")
-    val following: Int?,
-    @SerializedName("following_url")
+    @SerialName("following")
+    val following: Int? = null,
+    @SerialName("following_url")
     val followingUrl: String,
-    @SerializedName("gists_url")
+    @SerialName("gists_url")
     val gistsUrl: String,
-    @SerializedName("gravatar_id")
+    @SerialName("gravatar_id")
     val gravatarId: String,
-    @SerializedName("hireable")
-    val hireable: Boolean?,
-    @SerializedName("html_url")
+    @SerialName("hireable")
+    val hireable: Boolean? = null,
+    @SerialName("html_url")
     val htmlUrl: String,
-    @SerializedName("id")
+    @SerialName("id")
     val id: Int,
-    @SerializedName("location")
-    val location: String?,
-    @SerializedName("login")
+    @SerialName("location")
+    val location: String? = null,
+    @SerialName("login")
     val login: String,
-    @SerializedName("name")
-    val name: String?,
-    @SerializedName("node_id")
+    @SerialName("name")
+    val name: String? = null,
+    @SerialName("node_id")
     val nodeId: String,
-    @SerializedName("organizations_url")
+    @SerialName("organizations_url")
     val organizationsUrl: String,
-    @SerializedName("public_gists")
-    val publicGists: Int?,
-    @SerializedName("public_repos")
-    val publicRepos: Int?,
-    @SerializedName("received_events_url")
+    @SerialName("public_gists")
+    val publicGists: Int? = null,
+    @SerialName("public_repos")
+    val publicRepos: Int? = null,
+    @SerialName("received_events_url")
     val receivedEventsUrl: String,
-    @SerializedName("repos_url")
+    @SerialName("repos_url")
     val reposUrl: String,
-    @SerializedName("score")
+    @SerialName("score")
     val score: Double,
-    @SerializedName("site_admin")
+    @SerialName("site_admin")
     val siteAdmin: Boolean,
-    @SerializedName("starred_url")
+    @SerialName("starred_url")
     val starredUrl: String,
-    @SerializedName("subscriptions_url")
+    @SerialName("subscriptions_url")
     val subscriptionsUrl: String,
-    @SerializedName("suspended_at")
-    val suspendedAt: String?,
-    @SerializedName("text_matches")
+    @SerialName("suspended_at")
+    val suspendedAt: String? = null,
+    @SerialName("text_matches")
     val textMatches: List<TextMatches>? = listOf(),
-    @SerializedName("type")
+    @SerialName("type")
     val type: String,
-    @SerializedName("updated_at")
-    val updatedAt: String?,
-    @SerializedName("url")
+    @SerialName("updated_at")
+    val updatedAt: String? = null,
+    @SerialName("url")
     val url: String
 )
 
+@Serializable
 data class TextMatches(
-    @SerializedName("fragment")
-    val fragment: String?,
-    @SerializedName("matches")
+    @SerialName("fragment")
+    val fragment: String? = null,
+    @SerialName("matches")
     val matches: List<Matches>? = listOf(),
-    @SerializedName("object_type")
-    val objectType: String?,
-    @SerializedName("object_url")
-    val objectUrl: String?,
-    @SerializedName("property")
-    val `property`: String?
+    @SerialName("object_type")
+    val objectType: String? = null,
+    @SerialName("object_url")
+    val objectUrl: String? = null,
+    @SerialName("property")
+    val `property`: String? = null
 )
 
+@Serializable
 data class Matches(
-    @SerializedName("indices")
-    val indices: List<Int?>?,
-    @SerializedName("text")
-    val text: String?
+    @SerialName("indices")
+    val indices: List<Int?>? = null,
+    @SerialName("text")
+    val text: String? = null
 )

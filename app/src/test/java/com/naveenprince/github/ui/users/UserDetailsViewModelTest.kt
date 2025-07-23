@@ -1,6 +1,5 @@
 package com.naveenprince.github.ui.users
 
-import com.google.gson.Gson
 import com.naveenprince.github.data.users.mapper.UserDetailsMapper
 import com.naveenprince.github.data.users.source.remote.UserDetailsResponse
 import com.naveenprince.github.domain.users.repository.UsersRepository
@@ -8,6 +7,7 @@ import com.naveenprince.github.utilities.MainDispatcherRule
 import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -44,7 +44,7 @@ class UserDetailsViewModelTest {
         val queryUrl = "https://api.github.com/users/naveenprincepanakkal"
         val jsonString = javaClass.getResource("/json/user_details.json")?.readText()
         val userDetailsResponse: UserDetailsResponse =
-            Gson().fromJson(jsonString, UserDetailsResponse::class.java)
+            Json.decodeFromString<UserDetailsResponse>(jsonString.toString())
         val userDetails = UserDetailsMapper.fromResponse(userDetailsResponse)
         val successState =
             UserDetailsState(userDetails = userDetails, isLoading = false, error = null)

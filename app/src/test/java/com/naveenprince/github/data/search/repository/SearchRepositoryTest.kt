@@ -1,6 +1,5 @@
 package com.naveenprince.github.data.search.repository
 
-import com.google.gson.Gson
 import com.naveenprince.github.data.search.mapper.UserMapper
 import com.naveenprince.github.data.search.source.remote.SearchRemoteDataSource
 import com.naveenprince.github.data.search.source.remote.SearchUsersResponse
@@ -10,6 +9,7 @@ import com.naveenprince.github.utils.ResponseStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -42,7 +42,7 @@ class SearchRepositoryTest {
         val query = "naveenprincepanakkal"
         val jsonString = javaClass.getResource("/json/user_search.json")?.readText()
         val searchUsersResponse: SearchUsersResponse =
-            Gson().fromJson(jsonString, SearchUsersResponse::class.java)
+            Json.decodeFromString<SearchUsersResponse>(jsonString.toString())
 
         Mockito.`when`(remoteDataSource.searchUsers(query))
             .thenReturn(flowOf(ResponseStatus.Success(searchUsersResponse)))

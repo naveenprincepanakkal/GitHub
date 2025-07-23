@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -67,7 +68,7 @@ dependencies {
 
     //Retrofit
     implementation(libs.retrofit)
-    implementation(libs.converter.gson)
+    implementation(libs.retrofit.kotlinx.serialization.converter)
     implementation(libs.logging.interceptor)
 
     //Coil
@@ -93,6 +94,6 @@ dependencies {
     kspAndroidTest(libs.hilt.android.compiler)
 
     //Gson
-    testImplementation(libs.gson)
-
+    //testImplementation(libs.gson)
+    implementation(libs.kotlinx.serialization.json)
 }

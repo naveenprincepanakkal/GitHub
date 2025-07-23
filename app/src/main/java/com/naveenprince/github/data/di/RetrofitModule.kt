@@ -8,7 +8,9 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -29,11 +31,19 @@ object RetrofitModule {
             .addInterceptor(logger)
             .build()
 
+        val json = Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+        }
+
+        val contentType = "application/json".toMediaType()
+
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(json.asConverterFactory(contentType))
             .build()
+
     }
 
 }
