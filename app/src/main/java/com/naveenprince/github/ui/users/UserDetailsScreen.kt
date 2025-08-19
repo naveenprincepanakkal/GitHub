@@ -2,6 +2,7 @@ package com.naveenprince.github.ui.users
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -71,7 +72,9 @@ fun UserDetailsScreen(
                 IconButton(onClick = onBackClick) {
                     Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Navigate back")
                 }
-            })
+            },
+            windowInsets = WindowInsets(0) // <-- removes the extra space //
+        )
         Column(
             modifier = Modifier.fillMaxWidth(),
         ) {
