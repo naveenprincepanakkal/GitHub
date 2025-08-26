@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.ui.tooling)
     implementation(libs.material3)
+    implementation(libs.material3WindowSizeLib) // Changed here
     implementation(libs.navigation.compose)
 
     //Hilt
