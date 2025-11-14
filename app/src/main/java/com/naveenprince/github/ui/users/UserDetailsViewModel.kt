@@ -27,7 +27,13 @@ class UserDetailsViewModel @Inject constructor(private val usersRepository: User
 
     private var serviceJob: Job? = null
 
-    fun fetchUserDetails(url: String) {
+    fun onIntent(intent: UserDetailsIntent) {
+        when(intent) {
+            is UserDetailsIntent.FetchUserDetails -> fetchUserDetails(intent.url)
+        }
+    }
+
+    private fun fetchUserDetails(url: String) {
         serviceJob?.cancel()
         serviceJob = viewModelScope.launch {
             _userDetailsState.update { state ->

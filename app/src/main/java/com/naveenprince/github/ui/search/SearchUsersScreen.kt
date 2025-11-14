@@ -32,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.naveenprince.github.R
 import com.naveenprince.github.domain.search.model.User
@@ -50,7 +50,7 @@ import com.naveenprince.github.ui.theme.margin_medium
 @Composable
 fun SearchUsersScreen(
     onUserClick: (String) -> Unit,
-    viewModel: SearchUsersViewModel = hiltViewModel(),
+    viewModel: SearchUsersViewModel = hiltViewModel<SearchUsersViewModel>(),
 ) {
     val searchUserState by viewModel.searchUsersState.collectAsState()
     val focusManager = LocalFocusManager.current
@@ -58,7 +58,7 @@ fun SearchUsersScreen(
         searchUserState,
         onSearchClick = { query ->
             if (query.isNotEmpty()) {
-                viewModel.searchUser(query)
+                viewModel.onIntent(SearchUsersIntent.SearchUsers(query))
                 focusManager.clearFocus()
             }
         },
@@ -91,7 +91,6 @@ private fun SearchUsersScreen(
 
 @Composable
 private fun UserListView(userList: List<User>, onUserClick: (User) -> Unit) {
-
     Column {
         LazyColumn {
             items(userList) {

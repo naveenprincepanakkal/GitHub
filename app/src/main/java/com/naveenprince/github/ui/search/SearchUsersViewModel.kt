@@ -27,7 +27,13 @@ class SearchUsersViewModel @Inject constructor(private val searchRepository: Sea
 
     private var serviceJob: Job? = null
 
-    fun searchUser(query: String) {
+    fun onIntent(intent: SearchUsersIntent) {
+        when (intent) {
+            is SearchUsersIntent.SearchUsers -> searchUsers(intent.query)
+        }
+    }
+
+    private fun searchUsers(query: String) {
         serviceJob?.cancel()
         serviceJob = viewModelScope.launch {
             _searchUsersState.update { state ->

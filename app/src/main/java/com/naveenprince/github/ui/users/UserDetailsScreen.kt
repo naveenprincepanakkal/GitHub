@@ -27,7 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.naveenprince.github.R
 import com.naveenprince.github.domain.users.model.UserDetails
@@ -47,12 +47,12 @@ import com.naveenprince.github.ui.theme.margin_xlarge
 fun UserDetailsScreen(
     userUrl: String,
     onBackClick: () -> Unit,
-    viewModel: UserDetailsViewModel = hiltViewModel(),
+    viewModel: UserDetailsViewModel = hiltViewModel<UserDetailsViewModel>(),
 ) {
     val fetchedForUrl = rememberSaveable { mutableStateOf("") }
     LaunchedEffect(userUrl) {
         if (fetchedForUrl.value != userUrl) {
-            viewModel.fetchUserDetails(userUrl)
+            viewModel.onIntent(UserDetailsIntent.FetchUserDetails(userUrl))
             fetchedForUrl.value = userUrl
         }
     }
@@ -67,7 +67,8 @@ fun UserDetailsScreen(
     onBackClick: () -> Unit,
 ) {
     Column {
-        TopAppBar(title = { },
+        TopAppBar(
+            title = { },
             navigationIcon = {
                 IconButton(onClick = onBackClick) {
                     Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Navigate back")

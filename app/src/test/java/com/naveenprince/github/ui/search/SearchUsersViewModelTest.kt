@@ -57,7 +57,7 @@ class SearchUsersViewModelTest {
         // When
         Mockito.`when`(searchRepository.searchUsers(query))
             .thenReturn(flowOf(ResponseStatus.Success(userList)))
-        searchViewModel.searchUser(query)
+        searchViewModel.onIntent(SearchUsersIntent.SearchUsers(query))
 
         // Then
         assertEquals(searchViewModel.searchUsersState.value, successStatus)
@@ -79,7 +79,7 @@ class SearchUsersViewModelTest {
         // When
         Mockito.`when`(searchRepository.searchUsers(query))
             .thenReturn(flowOf(ResponseStatus.Error(errorCode, errorMessage)))
-        searchViewModel.searchUser(query)
+        searchViewModel.onIntent(SearchUsersIntent.SearchUsers(query))
 
         // Then
         assertEquals(searchViewModel.searchUsersState.value, errorState)

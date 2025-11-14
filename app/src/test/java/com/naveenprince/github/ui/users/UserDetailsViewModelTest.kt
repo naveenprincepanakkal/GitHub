@@ -52,7 +52,7 @@ class UserDetailsViewModelTest {
         // When
         Mockito.`when`(usersRepository.fetchUserDetails(queryUrl))
             .thenReturn(flowOf(ResponseStatus.Success(userDetails)))
-        userViewModel.fetchUserDetails(queryUrl)
+        userViewModel.onIntent(UserDetailsIntent.FetchUserDetails(queryUrl))
 
         // Then
         assertEquals(userViewModel.userDetailsState.value, successState)
@@ -70,7 +70,7 @@ class UserDetailsViewModelTest {
         // When
         Mockito.`when`(usersRepository.fetchUserDetails(query))
             .thenReturn(flowOf(ResponseStatus.Error(errorCode, errorMessage)))
-        userViewModel.fetchUserDetails(query)
+        userViewModel.onIntent(UserDetailsIntent.FetchUserDetails(query))
 
         // Then
         assertEquals(userViewModel.userDetailsState.value, errorState)
