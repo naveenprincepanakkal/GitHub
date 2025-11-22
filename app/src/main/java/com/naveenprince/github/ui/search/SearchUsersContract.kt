@@ -12,3 +12,4 @@ data class SearchUsersState(
 sealed interface SearchUsersIntent {
     data class SearchUsers(val query: String): SearchUsersIntent
 }
+
