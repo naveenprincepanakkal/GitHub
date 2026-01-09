@@ -10,8 +10,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.naveenprince.github.ui.GitHubUsersApp
-import com.naveenprince.github.ui.theme.GitHubUsersTheme
+import com.naveenprince.github.core.ui.GitHubUsersApp
+import com.naveenprince.github.core.ui.theme.GitHubUsersTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
