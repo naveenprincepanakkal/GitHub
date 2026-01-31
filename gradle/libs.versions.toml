@@ -1,5 +1,5 @@
 [versions]
-activity-compose = "1.12.2"
+activity-compose = "1.12.3"
 agp = "8.13.2"
 coil-compose = "2.7.0"
 compose-bom = "2026.01.01"
